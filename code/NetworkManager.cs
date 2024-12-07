@@ -33,7 +33,7 @@ public sealed class NetworkManager : Component, Component.INetworkListener
 		}
 		LobbyInformation lobby = lobbys.First();
 		Log.Info( lobby.LobbyId );
-		
+
 
 	}
 
@@ -60,7 +60,7 @@ public sealed class NetworkManager : Component, Component.INetworkListener
 		
 		}
 
-		if ( Input.Pressed("Slot3") )
+		if ( Input.Pressed( "Slot3" ) )
 		{
 			var lobbys = await Networking.QueryLobbies();
 			Log.Info( lobbys.Count );
@@ -71,8 +71,23 @@ public sealed class NetworkManager : Component, Component.INetworkListener
 				return;
 			}
 			LobbyInformation lobby = lobbys.First();
-			Log.Info( lobby.LobbyId );
-			Networking.Connect( lobby.LobbyId );
+			Log.Info( lobby.OwnerId );
+			Networking.Connect( lobby.OwnerId );
+		}
+
+		if ( Input.Pressed("Slot4") )
+		{
+			var lobbys = await Networking.QueryLobbies();
+			Log.Info( lobbys.Count );
+
+			if ( lobbys.Count == 0 )
+			{
+				Log.Info( "lobbys count is 0" );
+				return;
+			}
+			LobbyInformation lobby = lobbys.First();
+			Log.Info( lobby.OwnerId );
+			Networking.Connect( lobby.OwnerId );
 
 		}
 	}
